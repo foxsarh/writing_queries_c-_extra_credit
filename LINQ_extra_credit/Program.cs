@@ -104,6 +104,64 @@ namespace LINQ_extra_credit
                 }
             }//end of foreach loop
 
+
+            //// introducing an identifier using keyword "let"
+
+            // studentQuery5 is an IEnumerable<string>
+            // This query returns those students whose
+            // first test score was higher than their
+            // average score.
+            var studentQuery5 =
+                from student in students
+                let totalScore = student.Scores[0] + student.Scores[1] +
+                    student.Scores[2] + student.Scores[3]
+                where totalScore / 4 < student.Scores[0]
+                select student.Last + " " + student.First;
+
+            //output data from studentQuery5
+            foreach (string s in studentQuery5)
+            {
+                Console.WriteLine(s);
+            }//end of for each loop
+
+
+            //How to use the method syntax in a query expression
+
+            var studentQuery6 =
+                from student in students
+                let totalScore = student.Scores[0] + student.Scores[1] + student.Scores[2] + student.Scores[3]
+                select totalScore;
+
+            double averageScore = studentQuery6.Average();
+           //output data from studentQuery6
+            Console.WriteLine("Class average score = {0}", averageScore);
+
+            //example of select method
+            IEnumerable<string> studentQuery7 =
+                from student in students
+                where student.Last == "Garcia"
+                select student.First;
+
+             //output the data
+            Console.WriteLine("The Garcias in the class are:");
+            foreach (string s in studentQuery7)
+            {
+                Console.WriteLine(s);
+            }
+
+            //Create a sequence of students whose total combined scores are greater than the class average
+            var studentQuery8 =
+                from student in students
+                let x = student.Scores[0] + student.Scores[1] + student.Scores[2] + student.Scores[3]
+                where x > averageScore
+                select new { id = student.ID, score = x };
+
+            foreach (var item in studentQuery8)
+            {
+                Console.WriteLine("Student ID: {0}, Score: {1}", item.id, item.score);
+            }
+
+
         }//End of main
     }//End of program class
 
