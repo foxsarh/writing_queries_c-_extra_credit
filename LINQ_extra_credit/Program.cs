@@ -83,7 +83,26 @@ namespace LINQ_extra_credit
                     Console.WriteLine("   {0}, {1}",
                         student.Last, student.First);
                 }
-            }
+            }//end of foreach loop
+
+
+            //How to order the groups by their key value
+            var studentQuery4 =
+                from student in students
+                group student by student.Last[0] into studentGroup
+                orderby studentGroup.Key
+                select studentGroup;
+
+            //output data from studentQuery4
+            foreach (var groupOfStudents in studentQuery4)
+            {
+                Console.WriteLine(groupOfStudents.Key);
+                foreach (var student in groupOfStudents)
+                {
+                    Console.WriteLine("   {0}, {1}",
+                        student.Last, student.First);
+                }
+            }//end of foreach loop
 
         }//End of main
     }//End of program class
