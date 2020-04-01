@@ -38,11 +38,34 @@ namespace LINQ_extra_credit
                 orderby student.Scores[0] descending
                 select student;
 
+            // studentQuery2 is an IEnumerable<IGrouping<char, Student>>
+            // this produces a sequence of groups that have char data type as a "key"
+            // and a sequence of student objects 
+            var studentQuery2 =
+                from student in students
+                group student by student.Last[0];
+
             // Execute the query.
             // var could be used here also.
             foreach (Student student in studentQuery)
             {
-                Console.WriteLine("{0}, {1} || ID Number: {2}", student.Last, student.First, student.ID);
+                //Console.WriteLine("{0}, {1} || ID Number: {2}", student.Last, student.First, student.ID);
+
+                // Change the output so that the score are visible
+                Console.WriteLine("{0}, {1} {2}", student.Last, student.First, student.Scores[0]);
+
+            }
+
+            // studentGroup is a IGrouping<char, Student>
+            // output data from studentQuery2 grouping 
+            foreach (var studentGroup in studentQuery2)
+            {
+                Console.WriteLine(studentGroup.Key);
+                foreach (Student student in studentGroup)
+                {
+                    Console.WriteLine("   {0}, {1}",
+                              student.Last, student.First);
+                }
             }
         }
     }//End of program class
