@@ -54,7 +54,7 @@ namespace LINQ_extra_credit
                 // Change the output so that the score are visible
                 Console.WriteLine("{0}, {1} {2}", student.Last, student.First, student.Scores[0]);
 
-            }
+            }//end of foreach loop
 
             // studentGroup is a IGrouping<char, Student>
             // output data from studentQuery2 grouping 
@@ -66,8 +66,26 @@ namespace LINQ_extra_credit
                     Console.WriteLine("   {0}, {1}",
                               student.Last, student.First);
                 }
+            }//end of foreach loop
+
+            //make the variables implicitly typed 
+            //using the var keyword to make it more convenient to change the types of my objects
+            var studentQuery3 =
+                from student in students
+                group student by student.Last[0];
+
+            //output data from studentQuery3
+            foreach (var groupOfStudents in studentQuery3)
+            {
+                Console.WriteLine(groupOfStudents.Key);
+                foreach (var student in groupOfStudents)
+                {
+                    Console.WriteLine("   {0}, {1}",
+                        student.Last, student.First);
+                }
             }
-        }
+
+        }//End of main
     }//End of program class
 
     public class Student
