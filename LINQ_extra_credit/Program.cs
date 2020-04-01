@@ -34,7 +34,8 @@ namespace LINQ_extra_credit
                 from student in students
                 //where student.Scores[0] > 90
                 where student.Scores[0] > 90 && student.Scores[3] < 80
-                orderby student.Last ascending 
+                //orderby student.Last ascending
+                orderby student.Scores[0] descending
                 select student;
 
             // Execute the query.
